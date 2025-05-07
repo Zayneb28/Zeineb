@@ -1,0 +1,151 @@
+/* General Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    color: #333;
+    padding: 20px;
+}
+
+/* Header & Titles */
+h1, h2 {
+    text-align: center;
+    color: #2b2d42;
+    margin-bottom: 20px;
+}
+
+/* Container Styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #3f72af;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3f72af;
+    outline: none;
+}
+
+/* Submit Button */
+button, input[type="submit"] {
+    margin-top: 20px;
+    background-color: #3f72af;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #112d4e;
+}
+
+/* Success Message */
+.success-message {
+    text-align: center;
+    font-size: 18px;
+    color: green;
+    margin-top: 20px;
+}
+
+/* List Styling */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    background: #edf2f4;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Links */
+a {
+    color: #3f72af;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Reset generic button styling so it doesn't affect navbar */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* ----- NAVBAR BUTTON OVERRIDES ----- */
+/* Force navbar links (and the logout button styled as nav-link) to show as black text with transparent background */
+.navbar-nav .nav-link {
+    color: #3c67b8 !important;
+    background: transparent !important;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Subtle hover effect on those navbar items */
+.navbar-nav .nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    color: #3c67b8!important;
+}
+.logout-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  
+    /* centering helpers */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  nav.navbar.bg-dark {
+    background-color: #95c1b8 !important;    /* your new solid color */
+    background-image: none !important;        /* remove the default gradient */
+  }
+  
+  
+
+

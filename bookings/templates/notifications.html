@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Notifications</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .notification { border-bottom: 1px solid #ccc; padding: 10px 0; }
+        .timestamp { color: #888; font-size: 0.9em; }
+        .unread { font-weight: bold; }
+        a { text-decoration: none; color: #007BFF; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Your Notifications</h1>
+    {% if notifications %}
+        <ul>
+            {% for notification in notifications %}
+                <li class="notification {% if not notification.is_read %}unread{% endif %}">
+                    <p>{{ notification.message }}</p>
+                    <p class="timestamp">{{ notification.created_at|date:"M d, Y H:i" }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notifications to show.</p>
+    {% endif %}
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+</body>
+</html>

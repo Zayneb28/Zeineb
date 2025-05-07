@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<p> Connected with the username {{ user.username }} | 
+  <form method="post" action="{% url 'logout' %}" ; class="d-flex align-items-center justify-content-center">
+    {% csrf_token %}
+    <button type="submit" class="logout-button">Logout</button>
+
+  </form>
+</p>
+{% else %}
+<p>
+    <a href="{% url 'login' %}">Connexion</a>
+    <a href="{% url 'register' %}">Inscription</a>
+</p>
+{% endif %}
+<h1>Bookings</h1>
+
+
+<a href="{% url 'add_booking' default_trip_id %}" class="btn btn-primary">Add Booking</a>
+
+<!-- Booking list table -->
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Seats</th>
+      <th>Trip</th>
+      <th>Email</th>
+      <th>Payment Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for booking in bookings %}
+    <tr>
+      <td>{{ booking.customer_name }}</td>
+      <td>{{ booking.seats }}</td>
+      <td>{{ booking.trip }}</td>
+      <td>{{ booking.email }}</td>
+      <td>{{ booking.payment_status }}</td>
+      <td>
+        <a href="{% url 'show_booking' booking.id %}">View</a> |
+        <a href="{% url 'edit_booking' booking.id %}">Edit</a> |
+        <a href="{% url 'remove_booking' booking.id %}">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="6">No bookings found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2>Book Trip: {{ trip.departure }} → {{ trip.destination }}</h2>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <p><strong>Departure:</strong> {{ trip.departure_time|date:"D, M j, Y H:i" }}</p>
+          <p><strong>Arrival:</strong> {{ trip.arrival_time|date:"D, M j, Y H:i" }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Available Seats:</strong> 
+            <span class="badge bg-{% if available_seats > 5 %}success{% else %}warning{% endif %}">
+              {{ available_seats }}
+            </span>
+          </p>
+          <p><strong>Price per seat:</strong> ${{ trip.price }}</p>
+        </div>
+      </div>
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="col-md-8">
+          <label>Payment Method:</label>
+          <div class="d-flex gap-3">
+            {% for radio in form.payment_method %}
+              <div class="form-check">
+                {{ radio }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <!-- NEW BLOCK FOR STATUS -->
+        <div class="col-md-6">
+          {{ form.status.label_tag }}
+          {{ form.status }}
+          {{ form.status.errors }}
+        </div>
+        
+        <div class="col-12 mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">
+            Continue to Payment
+          </button>
+          <a href="{{ trip.get_absolute_url }}" class="btn btn-outline-secondary">
+            Back to Trip
+          </a>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            {{ form.customer_name.label_tag }}
+            {{ form.customer_name }}
+            {{ form.customer_name.errors }}
+          </div>
+          
+          <div class="col-md-6">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+          
+          <div class="col-md-4">
+            {{ form.seats.label_tag }}
+            <div class="input-group">
+              {{ form.seats }}
+              <span class="input-group-text">seats</span>
+            </div>
+            {{ form.seats.errors }}
+            <small class="text-muted">Max {{ available_seats }} available</small>
+          </div>
+          
+          <div class="col-md-8">
+            <label>Payment Method:</label>
+            <div class="d-flex gap-3">
+              {% for radio in form.payment_method %}
+                <div class="form-check">
+                  {{ radio }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Continue to Payment
+            </button>
+            <a href="{{ trip.get_absolute_url }}" class="btn btn-outline-secondary">
+              Back to Trip
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

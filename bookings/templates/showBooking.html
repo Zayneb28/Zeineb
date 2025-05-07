@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="bg-blue-50 min-h-screen py-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-center text-blue-900 mb-6">Booking Details 📝</h1>
+    
+    <!-- Booking Card -->
+    <div class="bg-white rounded-lg p-6 shadow-md border border-blue-100 mb-8">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h2 class="text-xl font-semibold text-blue-800">{{ booking.customer_name }}</h2>
+          <p class="text-gray-600">Booked on {{ booking.booked_at|date:"M d, Y H:i" }}</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-sm font-medium 
+          {% if booking.status == 'confirmed' %}bg-blue-100 text-blue-800
+          {% elif booking.status == 'completed' %}bg-green-100 text-green-800
+          {% else %}bg-red-100 text-red-800{% endif %}">
+          {{ booking.get_status_display }}
+        </span>
+      </div>
+      
+      <!-- Trip Details -->
+      <div class="border-t border-blue-100 pt-4 mt-4">
+        <h3 class="font-medium text-blue-800 mb-2">Trip Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-600 font-medium">Route:</p>
+            <p>{{ booking.trip.departure }} ➡️ {{ booking.trip.destination }}</p>
+          </div>
+          <div>
+            <p class="text-gray-600 font-medium">Departure:</p>
+            <p>{{ booking.trip.departure_time|date:"M d, Y H:i" }}</p>
+          </div>
+          <div>
+            <p class="text-gray-600 font-medium">Transport:</p>
+            <p>{{ booking.trip.get_transport_type_display }}</p>
+          </div>
+          <div>
+            <p class="text-gray-600 font-medium">Total Price:</p>
+            <p class="text-green-700 font-bold">{{ booking.get_total_price|default:booking.trip.price }} €</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tickets -->
+      <div class="border-t border-blue-100 pt-4 mt-4">
+        <h3 class="font-medium text-blue-800 mb-2">Tickets</h3>
+        {% if tickets %}
+          <ul class="list-disc list-inside">
+            {% for ticket in tickets %}
+              <li>
+                Ticket Number: {{ ticket.ticket_number }} - Status: {{ ticket.get_status_display }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No tickets available for this booking.</p>
+        {% endif %}
+      </div>
+      
+      <!-- Actions -->
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="{% url 'list_bookings' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+          Back to Bookings
+        </a>
+        <a href="{% url 'edit_booking' booking.id %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-md">
+          Edit Booking
+        </a>
+        <a href="{% url 'remove_booking' booking.id %}" class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md">
+          Cancel Booking
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
